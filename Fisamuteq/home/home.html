@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Manager</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .main {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+        .left {
+            background-color: beige;
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .left img {
+            max-width: 100%;
+            max-height: 80%;
+        }
+        .right {
+            width: 50%;
+            position: relative;
+        }
+        .banner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: blur(8px);
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            z-index: 1;
+            
+        }
+        .option {
+             /* Beige color */
+            color: white;
+            
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding:6px;
+
+            
+        }
+        .option img {
+            
+            height: 300px;
+            width: auto;
+            border-radius: 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .option:hover img {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        @media (max-width: 600px) {
+            .option {
+                flex: 1 1 100%;
+            }
+            .left, .right {
+                width: 100%;
+                height: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="left">
+            <img src="Logo.png" alt="Logo">
+        </div>
+        <div class="right">
+            <img src="u1.png" alt="Banner Image" class="banner">
+            <div class="options">
+                <a href="/Fisamuteq/fd/fd.html" class="option"><img src="fd.png" alt="fixed deposit"></a>
+                <a href="/Fisamuteq/sd/sd.html" class="option"><img src="sd.png" alt="savings deposit"></a>
+                <a href="/Fisamuteq/mf/mf.html" class="option"><img src="mf.png" alt="mutual funds"></a>
+                <a href="/Fisamuteq/eq/eq.html" class="option"><img src="eq.png" alt="equity"></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

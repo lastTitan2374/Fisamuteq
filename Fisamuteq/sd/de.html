@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savings Deposit</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        .b1 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            display: flex;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            width: 100%;
+            margin: 20px;
+        }
+        h1 {
+            font-size: 2em;
+            color: #333;
+        }
+        .form-section {
+            margin-top: 30px;
+        }
+        .form-section form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .form-section input, .form-section button {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+            width: 100%;
+        }
+        .form-section label {
+            font-size: 0.9em;
+            color: #000000;
+            margin-bottom: 5px;
+        }
+        .form-section button {
+            background-color: rgb(29, 4, 4);
+            color: beige;
+            border: none;
+            cursor: pointer;
+            justify-self: center;
+            width: 50%;
+            margin: 0 auto;
+        }
+        .form-section button:hover {
+            background-color: #653215;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: rgb(29, 4, 4);
+            color: beige;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="logo">
+       <a href="/Fisamuteq/home/home.html"> <img src="Logo.png" alt="Logo" style="height: 35px; width: auto; position: relative; top: 10px;"> </a>
+    </div>
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <nav class="nav-links" id="nav-links">
+        <a href="tr.html">Total Report</a>
+    </nav>
+</div>
+<div class="b1">
+    <div class="container">
+        <h1 style="text-align: center;">Savings Deposit Entry</h1>
+        <div class="form-section">
+            <form id="savingsDepositForm" method="post" action="insert_data.php">
+                <center><div>
+                    <label for="transactionDate">Date: </label>
+                    <input type="date" id="transactionDate" name="transactionDate" style="width: 200px;" required>
+                </div></center>
+                <button type="button" onclick="displayAccounts()">Show Accounts</button>
+                <div class="table-section" id="tableSection" style="display:none;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Account Holder</th>
+                                <th>Bank Name</th>
+                                <th>Account Number</th>
+                                <th>Opening Balance</th>
+                                <th>Income</th>
+                                <th>Expenses</th>
+                                <th>Current Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="accountsTableBody">
+                            <!-- Rows will be added dynamically here -->
+                        </tbody>
+                    </table>
+                    <button type="submit" id="submitButton" style="display: none; background-color: rgb(29, 4, 4); color: beige; border: none; cursor: pointer; justify-self: center; width: 50%; margin: 20px auto;">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const accountsData = {
+            Biji: [
+                {bankName: 'Axis Bank', accountNumber: 123456, openingBalance: 1000},
+                {bankName: 'SIB', accountNumber: 123457, openingBalance: 2000},
+                {bankName: 'ICICI', accountNumber: 123458, openingBalance: 3000},
+            ],
+            Bindu: [
+                {bankName: 'SIB', accountNumber: 234567, openingBalance: 4000},
+                {bankName: 'Federal Bank', accountNumber: 234568, openingBalance: 5000},
+                {bankName: 'SBI', accountNumber: 234569, openingBalance: 6000},
+            ],
+            Nikitha: [
+                {bankName: 'Federal Bank', accountNumber: 345678, openingBalance: 7000},
+            ],
+            Jonathan: [
+                {bankName: 'SIB', accountNumber: 678901, openingBalance: 10000},
+                {bankName: 'Axis Bank', accountNumber: 678902, openingBalance: 11000},
+            ],
+            Chachen: [
+                {bankName: 'SIB', accountNumber: 456789, openingBalance: 8000},
+            ],
+            Mummy: [
+                {bankName: 'SIB', accountNumber: 567890, openingBalance: 9000},
+            ]
+        };
+
+        function displayAccounts() {
+            const transactionDate = document.getElementById('transactionDate').value;
+            const tableSection = document.getElementById('tableSection');
+            const accountsTableBody = document.getElementById('accountsTableBody');
+            accountsTableBody.innerHTML = '';
+
+            // Fetch previous data based on selected date
+            fetch(`fetch_previous_data.php?transactionDate=${transactionDate}`)
+                .then(response => response.json())
+                .then(data => {
+                    for (const [accountHolder, accounts] of Object.entries(accountsData)) {
+                        let rowspan = accounts.length;
+
+                        accounts.forEach((account, index) => {
+                            let previousOpeningBalance = 0;
+                            let income = 0;
+                            let expenses = 0;
+                            const previousData = data.find(d => d.accountNumber === account.accountNumber);
+                            if (previousData) {
+                                previousOpeningBalance = parseFloat(previousData.openingBalance);
+                                income = parseFloat(previousData.income) || 0;
+                                expenses = parseFloat(previousData.expenses) || 0;
+                            }
+
+                            const currentBalance = previousOpeningBalance + income - expenses;
+
+                            const row = document.createElement('tr');
+                            
+                            if (index === 0) {
+                                row.innerHTML = `
+                                    <td rowspan="${rowspan}"><input type="hidden" name="accountHolder[]" value="${accountHolder}">${accountHolder}</td>
+                                    <td><input type="hidden" name="bankName[]" value="${account.bankName}">${account.bankName}</td>
+                                    <td><input type="hidden" name="accountNumber[]" value="${account.accountNumber}">${account.accountNumber}</td>
+                                    <td><input type="hidden" name="openingBalance[]" value="${previousOpeningBalance}">${previousOpeningBalance}</td>
+                                    <td><input type="number" name="income[]" style="width:100px;" value="${income}" oninput="updateCurrentBalance(this)"></td>
+                                    <td><input type="number" name="expenses[]" style="width:100px;" value="${expenses}" oninput="updateCurrentBalance(this)"></td>
+                                    <td class="currentBalance">${currentBalance.toFixed(2)}</td>
+                                `;
+                            } else {
+                                row.innerHTML = `
+                                    <td><input type="hidden" name="bankName[]" value="${account.bankName}">${account.bankName}</td>
+                                    <td><input type="hidden" name="accountNumber[]" value="${account.accountNumber}">${account.accountNumber}</td>
+                                    <td><input type="hidden" name="openingBalance[]" value="${previousOpeningBalance}">${previousOpeningBalance}</td>
+                                    <td><input type="number" name="income[]" style="width:100px;" value="${income}" oninput="updateCurrentBalance(this)"></td>
+                                    <td><input type="number" name="expenses[]" style="width:100px;" value="${expenses}" oninput="updateCurrentBalance(this)"></td>
+                                    <td class="currentBalance">${currentBalance.toFixed(2)}</td>
+                                `;
+                            }
+                            accountsTableBody.appendChild(row);
+                        });
+                    }
+
+                    tableSection.style.display = 'block';
+                    document.getElementById('submitButton').style.display = 'block'; // Show the submit button
+                })
+                .catch(error => {
+                    console.error('Error fetching previous data:', error);
+                });
+        }
+
+        function updateCurrentBalance(input) {
+            const row = input.closest('tr');
+            const openingBalance = parseFloat(row.querySelector('input[name="openingBalance[]"]').value);
+            const income = parseFloat(row.querySelector('input[name="income[]"]').value);
+            const expenses = parseFloat(row.querySelector('input[name="expenses[]"]').value);
+            const currentBalance = openingBalance + income - expenses;
+            row.querySelector('.currentBalance').innerText = currentBalance.toFixed(2);
+        }
+
+        document.getElementById('hamburger').addEventListener('click', function () {
+            document.getElementById('nav-links').classList.toggle('active');
+        });
+        loadAccountDetails2();
+    </script>
+    </div>
+</body>
+</html>

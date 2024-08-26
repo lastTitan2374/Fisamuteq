@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savings Deposit</title>
+    
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var sliderItems = document.querySelectorAll(".slider__item");
+            
+            sliderItems.forEach(function(item) {
+                item.addEventListener("click", function() {
+                    var targetPage = item.getAttribute("data-page");
+                    window.location.href = targetPage;
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+           <a href="/Fisamuteq/home/home.html"> <img src="Logo.png" alt="Logo" style="height: 35px; width: auto; position: relative; top: 10px;"> </a>
+        </div>
+    </div>
+    <script>
+        document.getElementById('hamburger').addEventListener('click', function () {
+            document.getElementById('nav-links').classList.toggle('active');
+        });
+    </script>
+    <br><h1 style="text-align: center; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; color: #291303;">Savings Deposit</h1>
+    <div class="slider" x-data="{start: true, end: false}">
+        <div class="slider__content" x-ref="slider" x-on:scroll.debounce="$refs.slider.scrollLeft == 0 ? start = true : start = false; Math.ceil($refs.slider.scrollLeft) >= ($refs.slider.scrollWidth - $refs.slider.clientWidth) ? end = true : end = false;">
+            <div class="slider__item" data-page="de.html">
+                <img class="slider__image" src="e1.png" alt="Image">
+                <div class="slider__info">
+                    <h1>Data<br>Entry</h1>
+                </div>
+            </div>
+            <div class="slider__item" data-page="tr.html">
+                <img class="slider__image" src="e1.png" alt="Image">
+                <div class="slider__info">
+                    <h1>Total<br>Report</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.2/cdn.js"></script>
+    <br><br><br>
+    
+</body>
+</html>

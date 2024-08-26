@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutual Funds - Data Entry</title>
+
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .b1 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            display: flex;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            width: 100%;
+            margin: 20px;
+        }
+        h2 {
+            font-size: 2em;
+            color: #333;
+        }
+        .form-section {
+            margin-top: 30px;
+        }
+        .form-section form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .form-group {
+            display: flex;
+            gap: 20px;
+        }
+        .form-group > div {
+            flex: 1;
+        }
+        .form-section input, .form-section select, .form-section button {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+            width: 100%;
+        }
+        .form-section label {
+            font-size: 0.9em;
+            color: #000000;
+            margin-bottom: 5px;
+        }
+        .form-section button {
+            background-color: rgb(29, 4, 4);
+            color: beige;
+            border: none;
+            cursor: pointer;
+            justify-self: center;
+            width: 50%;
+            margin: 0 auto;
+        }
+        .form-section button:hover {
+            background-color: #653215;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">
+           <a href="/Fisamuteq/home/home.html"> <img src="Logo.png" alt="Logo" style="height: 35px; width: auto; position: relative; top: 10px;"> </a>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav class="nav-links" id="nav-links">
+            <a href="total_report.php">Total Report</a>
+        </nav>
+    </div>
+    <center>
+    <div class="b1">
+        <br><br><br>
+        <div class="container" id="data-entry">
+            <div class="form-section">
+                <h2>Enter Mutual Funds Details</h2>
+                <form action="mf_entry.php" method="post">
+                    <div class="form-group">
+                        <div>
+                            <label for="amc">AMC</label>
+                            <select id="amc" name="amc" required>
+                                <option value="">--Select AMC--</option>
+                                <option value="SBI">SBI</option>
+                                <option value="ICICI">ICICI</option>
+                                <option value="Axis">Axis</option>
+                                <option value="Tata">Tata</option>
+                                <option value="HDFC">HDFC</option>
+                                <option value="Mottilal Oswal">Mottilal Oswal</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="owner">Owner</label>
+                            <select id="owner" name="owner" required>
+                                <option value="">--Select Owner--</option>
+                                <option value="Biji">Biji</option>
+                                <option value="Bindu">Bindu</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="bank">Bank</label>
+                            <select id="bank" name="bank" required>
+                                <option value="">--Select Bank--</option>
+                                <option value="ICICI">ICICI</option>
+                                <option value="SBI">SBI</option>
+                                <option value="Federal Bank">Federal Bank</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="folio-number">Folio Number</label>
+                            <input type="text" id="folio-number" name="folio-number" placeholder="Folio Number" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="scheme">Scheme</label>
+                            <input type="text" id="scheme" name="scheme" placeholder="Scheme" required>
+                        </div>
+                        <div>
+                            <label for="type">Type</label>
+                            <select id="type" name="type" required>
+                                <option value="">--Select Type--</option>
+                                <option value="Direct growth">Direct growth</option>
+                                <option value="Regular growth">Regular growth</option>
+                                <option value="SIP growth">SIP growth</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="nav-date">NAV Date</label>
+                            <input type="date" id="nav-date" name="nav-date" required>
+                        </div>
+                        <div>
+                            <label for="purchased-nav">Purchased NAV</label>
+                            <input type="number" step="0.01" id="purchased-nav" name="purchased-nav" placeholder="Purchased NAV" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="amount-invested">Amount Invested</label>
+                            <input type="number" step="0.01" id="amount-invested" name="amount-invested" placeholder="Amount Invested" required>
+                        </div>
+                        <div>
+                            <label for="units-purchased">Units Purchased</label>
+                            <input type="number" id="units-purchased" name="units-purchased" placeholder="Units Purchased" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label for="today-date">Today's Date</label>
+                            <input type="date" id="today-date" name="today-date" required>
+                        </div>
+                        <div>
+                            <label for="today-nav">Today's NAV</label>
+                            <input type="number" step="0.01" id="today-nav" name="today-nav" placeholder="Today's NAV" required>
+                        </div>
+                    </div>
+                    <button type="submit">Add Mutual Fund</button>
+                </form>
+            </div>
+        </div>
+        <br><br><br><br><br>
+    </center>
+<script>
+    document.getElementById('hamburger').addEventListener('click', function () {
+            document.getElementById('nav-links').classList.toggle('active');
+        });
+</script>
+</body>
+</html>

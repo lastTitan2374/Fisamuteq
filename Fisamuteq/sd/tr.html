@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Report</title>
+    <style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    width: 100%;
+    margin: 20px;
+}
+
+h1 {
+    font-size: 2em;
+    text-align: center;
+    color: #333;
+}
+
+.form-section {
+    margin-top: 30px;
+}
+
+.form-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.form-section select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    width: 200px;
+}
+
+.form-section button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+    background-color: rgb(29, 4, 4);
+    color: beige;
+    cursor: pointer;
+}
+
+.form-section button:hover {
+    background-color: #653215;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: rgb(29, 4, 4);
+    color: beige;
+}
+
+td:first-child {
+    font-weight: bold;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.logo img {
+    height: 40px;
+    position: relative;
+    left: 35px;
+}
+
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 20px;
+    cursor: pointer;
+    position: relative;
+    right: 30px;
+}
+
+.hamburger span {
+    display: block;
+    height: 3px;
+    background-color: #333;
+    border-radius: 3px;
+    transition: transform 0.3s ease;
+}
+
+.nav-links {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 999;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px 0;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #007BFF;
+}
+
+.nav-links.active {
+    display: flex;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+           <a href="/Fisamuteq/home/home.html"> <img src="Logo.png" alt="Logo" style="height: 35px; width: auto; position: relative; top: 10px;"> </a>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav class="nav-links" id="nav-links">
+            <a href="de.html">Data Entry</a>
+        </nav>
+    </div>
+    <br><br><br>
+    <div class="b1">
+    <div class="container">
+        <h1>Monthly Report</h1>
+        <div class="form-section">
+            <form id="reportForm" method="post" action="generate_report.php">
+                <select id="month" name="month" required>
+                    <option value="">Select Month</option>
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+                <button type="submit">Generate Report</button>
+            </form>
+        </div>
+        <div class="table-section">
+            <!-- The report will be displayed here -->
+            <?php if (!empty($reportData)): ?>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Account Holder</th>
+                            <th>Bank Name</th>
+                            <th>Account Number</th>
+                            <th>Opening Balance</th>
+                            <th>Income</th>
+                            <th>Expenses</th>
+                            <th>Current Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $currentAccountHolder = '';
+                        foreach ($reportData as $data): ?>
+                            <tr>
+                                <td><?= $data['accountHolder'] !== $currentAccountHolder ? $data['accountHolder'] : '' ?></td>
+                                <td><?= $data['bankName'] ?></td>
+                                <td><?= $data['accountNumber'] ?></td>
+                                <td><?= $data['openingBalance'] ?></td>
+                                <td><?= $data['income'] ?></td>
+                                <td><?= $data['expenses'] ?></td>
+                                <td><?= $data['currentBalance'] ?></td>
+                            </tr>
+                        <?php
+                        $currentAccountHolder = $data['accountHolder'];
+                        endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+    <script>
+        document.getElementById('hamburger').addEventListener('click', function () {
+            document.getElementById('nav-links').classList.toggle('active');
+        });
+        loadAccountDetails2();
+    </script>
+</body>
+</html>
